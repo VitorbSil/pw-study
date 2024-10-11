@@ -9,9 +9,9 @@ public class TutorDisponibilidade
     @Id
     @ManyToMany
     @JoinColumn(name = "ID_MONITOR")
-    private Monitor idMonitor;
+    private Monitor monitor;
 
     @ManyToMany
     @JoinColumn(name = "ID_DISPONIBILIDADE")
-    private Disponibilidade idDisponibilidade;
+    private Disponibilidade disponibilidade;
 }
