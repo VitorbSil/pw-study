@@ -29,7 +29,4 @@ public class Disponibilidade
     @Column(name = "DT_ATE")
     private LocalDateTime ate;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_MONITOR")
-    private Monitor monitor;
 }
