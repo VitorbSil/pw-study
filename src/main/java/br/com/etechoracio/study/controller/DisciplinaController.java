@@ -5,11 +5,12 @@ import br.com.etechoracio.study.entity.Disciplina;
 import br.com.etechoracio.study.service.DisciplinaService;
 import jdk.jfr.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/disciplina")
+@RequestMapping("/disciplinas")
 @RestController
 public class DisciplinaController {
     @Autowired
@@ -28,6 +29,12 @@ public class DisciplinaController {
         return service.buscarPorId(id);
     }
 
+    @GetMapping("/nome/{nome}")
+    public Disciplina buscarPorNome(@PathVariable("nome") String nome)
+    {
+        return service.buscarPorNome(nome);
+    }
+
     @PostMapping
     public Disciplina cadastrar(@RequestBody  Disciplina disciplina)
     {
@@ -44,8 +51,16 @@ public class DisciplinaController {
         return null;
     }
     @DeleteMapping("/{id}")
-    public void escluir(@PathVariable ("id") Long id)
+    public ResponseEntity<Disciplina> excluir(@PathVariable ("id") Long id)
     {
-        service.excluir(id);
+        if(service.buscarPorId(id) != null)
+        {
+            service.excluir(id);
+            return ResponseEntity.ok().build();
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 }

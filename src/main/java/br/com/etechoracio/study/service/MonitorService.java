@@ -32,7 +32,19 @@ public class MonitorService {
     //Cadastrar monitor
     public Monitor cadastrar(Monitor monitor)
     {
-        return repository.save(monitor);
+        var existeEmail = repository.findByWhatsapp(monitor.getWhatsapp());
+        var existeWhatsapp = repository.findByEmail(monitor.getEmail());
+        if(existeEmail != null)
+        {
+            System.out.println("Email já cadastrado");
+            return null;
+        }
+        else if(existeWhatsapp != null)
+        {
+            System.out.println("Whatsapp já cadastrado");
+            return null;
+        }
+        else return repository.save(monitor);
     }
 
     //Alterar monitor
